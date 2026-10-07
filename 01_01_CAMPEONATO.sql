@@ -1,19 +1,19 @@
--- 1.1 Campeonato
 
-CREATE OR REPLACE TABLE time (
+
+--CRIAÇÃO DA TABELA COM OS TIMES 
+CREATE OR REPLACE TABLE equipes (
   time_id   INT,
   time_nome STRING
 );
 
-INSERT INTO time (time_id, time_nome) VALUES
+INSERT INTO equipes (time_id, time_nome) VALUES
   (10, 'Financeiro'),
   (20, 'Marketing'),
   (30, 'Logistica'),
   (40, 'TI'),
   (50, 'Dados');
 
-SELECT * FROM time;
-
+-- CRIAÇÃO DA TABELA COM OS JOGOS
 create or replace table jogos (
     jogo_id INT,
     time_mandante INT,
@@ -28,10 +28,13 @@ INSERT INTO jogos (jogo_id, time_mandante, time_visitante, gols_mandante, gols_v
   (3,20,50,2,2),
   (4,10,30,1,0),
   (5,30,50,0,1);
-  select * from jogos
 
 
+
+
+-- CÁLCULO DOS PONTOS
 With pontuacao as(
+--TIME MANDANTE  
     select
         time_mandante as time_id,
         case
@@ -41,6 +44,7 @@ With pontuacao as(
         end as pontos
     from jogos
 UNION all
+  --TIME VISITANTE
     select
         time_visitante as time_id,
         case
@@ -54,6 +58,6 @@ select
     a.time_id,
     a.time_nome,
     coalesce(sum(b.pontos),0) as pontuacao
-from time as a left join pontuacao as b on a.time_id = b.time_id
+from equipes as a left join pontuacao as b on a.time_id = b.time_id
 group by 1,2
 order by pontuacao desc, time_id asc;
