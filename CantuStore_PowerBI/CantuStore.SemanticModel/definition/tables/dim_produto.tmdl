@@ -1,0 +1,60 @@
+table dim_produto
+	lineageTag: 1dcbe77f-817b-48b8-af5e-8ddd58750728
+
+	column produto_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 43c07813-f59b-48e6-b5a6-b46b44a67dc4
+		summarizeBy: none
+		sourceColumn: produto_id
+
+		changedProperty = IsHidden
+
+	column primeira_aparicao_observada
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 53df6dd2-5a60-4516-9f56-2890d265590c
+		summarizeBy: none
+		sourceColumn: primeira_aparicao_observada
+
+		changedProperty = IsHidden
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column rotulo_produto
+		dataType: string
+		lineageTag: db484883-9c60-4aad-9494-c7f7d0473a7d
+		summarizeBy: none
+		sourceColumn: rotulo_produto
+
+		changedProperty = IsHidden
+
+	column mes_primeira_aparicao = IF(NOT ISBLANK(dim_produto[primeira_aparicao_observada]), FORMAT(dim_produto[primeira_aparicao_observada], "yyyy-MM"), "Sem data")
+		dataType: string
+		lineageTag: 71af2910-f547-4ddc-a5da-7d828f3ca3c9
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+	column 'Produto ID texto' = FORMAT(dim_produto[produto_id], "0")
+		lineageTag: b832d34e-cd22-403b-8d2b-6283f7fb9a9b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_produto = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_produto.csv" or Text.EndsWith([Name], "-dim_produto.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_produto.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"produto_id", Int64.Type}, {"primeira_aparicao_observada", type date}, {"rotulo_produto", type text}}, "en-US")
+				in
+				    Tipos
+
+	changedProperty = IsHidden
+

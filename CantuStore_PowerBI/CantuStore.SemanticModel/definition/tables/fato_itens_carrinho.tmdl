@@ -1,0 +1,244 @@
+table fato_itens_carrinho
+	lineageTag: 0884dd8e-f677-4c29-982e-d326e234b04d
+
+	/// Carrinhos com registros de itens; abandono é premissa, não confirmação de não conversão.
+	measure 'Carrinhos analisados' = DISTINCTCOUNT(fato_itens_carrinho[carrinho_id])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 8b446849-07e1-4f63-9c15-8302ecc5fe9a
+
+	measure 'Registros de itens' = COUNTROWS(fato_itens_carrinho)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 91194680-9a7d-4242-b293-55101ae2063d
+
+	measure 'Unidades de produtos' = CALCULATE(SUM(fato_itens_carrinho[quantidade]), fato_itens_carrinho[quantidade_invalida] = 0)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 03f88d3b-3737-4087-9c49-8e5ec720b993
+
+	/// Soma de p_totalprice, em unidades monetárias da origem; valor não faturado somente sob a premissa de abandono. Moeda não confirmada.
+	measure 'Valor dos itens' = CALCULATE(SUM(fato_itens_carrinho[valor_item]), fato_itens_carrinho[valor_invalido] = 0)
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 55a3b2fb-3790-4612-a25c-06a21ba8e30b
+
+	measure 'Produtos identificados' = CALCULATE(DISTINCTCOUNT(fato_itens_carrinho[produto_id]), fato_itens_carrinho[produto_id] <> -1)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: a72939e8-2f00-416a-9967-497bcb5541d0
+
+	measure 'Carrinhos sem data' = CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[data_id] = -1))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 17bec174-965f-46b8-91dc-1f389d920440
+
+	measure 'Carrinhos com estado' = CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[regiao_id] <> -1))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: c1b92b4d-5c6b-4bfa-b9d7-c34b4a197488
+
+	measure 'Carrinhos sem estado' = CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[regiao_id] = -1))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: df608b8d-ea7b-42dc-81a3-9eec7ab06c3c
+
+	measure 'Cobertura geográfica' = DIVIDE([Carrinhos com estado], [Carrinhos analisados])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 4f609444-7190-427c-a2f9-80fa68b950f5
+
+	measure 'Carrinhos em estados identificados' = IF(SELECTEDVALUE(dim_regiao[uf]) <> "NI", [Carrinhos analisados])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 912155fb-750d-435a-bb35-8258fa0907d2
+
+	measure 'Carrinhos da dupla' = DISTINCTCOUNT(fato_duplas_carrinho[carrinho_id])
+		formatString: #,0
+		displayFolder: Duplas
+		lineageTag: d2c1312a-c0e8-4674-b831-ec50cbd4905f
+
+	measure 'Carrinhos Top 10 produtos' =
+			VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+			VAR Posicao = RANKX(FILTER(ALLSELECTED(dim_produto), dim_produto[produto_id] <> -1), [Carrinhos analisados], , DESC, DENSE)
+			RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && Posicao <= 10, [Carrinhos analisados])
+		formatString: #,0
+		displayFolder: Rankings
+		lineageTag: 9b69e5a3-2555-48fb-8dcb-f0a4393c7c7d
+
+	measure 'Carrinhos Top 10 duplas' =
+			VAR Posicao = RANKX(ALLSELECTED(fato_duplas_carrinho[dupla]), [Carrinhos da dupla], , DESC, DENSE)
+			RETURN IF(Posicao <= 10, [Carrinhos da dupla])
+		formatString: #,0
+		displayFolder: Rankings
+		lineageTag: 0f6a27ed-3857-41a3-a838-6f6ff79cd854
+
+	measure 'Mês de comparação' = SELECTEDVALUE(periodo_comparacao[ano_mes], MAX(periodo_comparacao[ano_mes]))
+		displayFolder: Comparação mensal
+		lineageTag: eaa65cf2-aff2-4b11-a98b-a59130a3cccd
+
+	measure 'Carrinhos mês selecionado' =
+			VAR Chave = SELECTEDVALUE(periodo_comparacao[ano_mes_ordem], MAX(periodo_comparacao[ano_mes_ordem]))
+			RETURN COALESCE(CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = Chave)), 0)
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: 8dfcecf2-d260-4084-91d0-c55f2176fe9c
+
+	measure 'Carrinhos mês anterior' =
+			VAR Chave = SELECTEDVALUE(periodo_comparacao[ano_mes_ordem], MAX(periodo_comparacao[ano_mes_ordem]))
+			VAR Inicio = DATE(INT(Chave / 100), MOD(Chave, 100), 1)
+			VAR Anterior = EDATE(Inicio, -1)
+			VAR ChaveAnterior = YEAR(Anterior) * 100 + MONTH(Anterior)
+			VAR Existe = COUNTROWS(FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = ChaveAnterior)) > 0
+			RETURN IF(Existe, COALESCE(CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = ChaveAnterior)), 0))
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: 6b4d3fd7-8b38-45ed-ab32-b0fee2954faa
+
+	measure 'Variação absoluta' = VAR Ant = [Carrinhos mês anterior] RETURN IF(NOT ISBLANK(Ant), [Carrinhos mês selecionado] - Ant)
+		formatString: #,0;[Red]-#,0
+		displayFolder: Comparação mensal
+		lineageTag: 1eb71da6-850a-4144-a179-a0e3db3aa575
+
+	measure 'Variação percentual' = DIVIDE([Variação absoluta], [Carrinhos mês anterior])
+		formatString: 0.00%;[Red]-0.00%
+		displayFolder: Comparação mensal
+		lineageTag: 4653dbf0-3e03-45ef-a91b-e29edd1c0b49
+
+	measure 'Aumento positivo' = VAR Produto = SELECTEDVALUE(dim_produto[produto_id]) RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && [Variação absoluta] > 0, [Variação absoluta])
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: d2e80221-0895-4730-9862-4b94837ae8b8
+
+	measure 'Carrinhos atual com aumento' = IF(NOT ISBLANK([Aumento positivo]), [Carrinhos mês selecionado])
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: 3aef0dd0-131d-45e9-b2c6-52c8f79b5baf
+
+	measure 'Carrinhos anterior com aumento' = IF(NOT ISBLANK([Aumento positivo]), [Carrinhos mês anterior])
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: bc24dfe6-504b-4479-aa0b-a5e9819f3897
+
+	measure 'Percentual com aumento' = IF(NOT ISBLANK([Aumento positivo]), [Variação percentual])
+		formatString: 0.00%
+		displayFolder: Comparação mensal
+		lineageTag: 66ec397a-20d0-4ee2-b787-b9a6e76e4d8e
+
+	measure 'Aumento Top 10' =
+			VAR Posicao = RANKX(FILTER(ALLSELECTED(dim_produto), dim_produto[produto_id] <> -1), [Aumento positivo], , DESC, DENSE)
+			RETURN IF(Posicao <= 10, [Aumento positivo])
+		formatString: #,0
+		displayFolder: Comparação mensal
+		lineageTag: 0bd3c741-13eb-410a-b18a-a0f9ab9ba179
+
+	measure 'Carrinhos primeiro mês observado' =
+			VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+			VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+			VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+			RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))
+		formatString: #,0
+		displayFolder: Primeira aparição
+		lineageTag: cb9ef6c1-510f-4bdc-b4da-746d90ed4deb
+
+	measure 'Unidades primeiro mês observado' =
+			VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+			VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+			VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+			RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Unidades de produtos], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))
+		formatString: #,0
+		displayFolder: Primeira aparição
+		lineageTag: cb15bbbb-2a0d-4667-b534-9581a5c5fdbc
+
+	measure 'Valor primeiro mês observado' =
+			VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+			VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+			VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+			RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Valor dos itens], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))
+		formatString: #,0.00
+		displayFolder: Primeira aparição
+		lineageTag: 9ab01986-770f-4ac6-8638-fa22c3b35986
+
+	column item_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 938f6164-8d47-4aac-bb49-316c5c7c81f4
+		summarizeBy: none
+		sourceColumn: item_id
+
+	column carrinho_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 691c4a43-6323-464d-9b26-5f42b310bf2f
+		summarizeBy: none
+		sourceColumn: carrinho_id
+
+	column produto_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 764bf31d-ceaf-4f9e-9e6a-7e909d3d5c6e
+		summarizeBy: none
+		sourceColumn: produto_id
+
+	column produto_identificado
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: a69cb48e-37e0-4f6c-aaa3-c1e52df03202
+		summarizeBy: none
+		sourceColumn: produto_identificado
+
+	column quantidade
+		dataType: double
+		formatString: #,0
+		lineageTag: eae0e987-bdd0-4771-832d-7f138b17e644
+		summarizeBy: none
+		sourceColumn: quantidade
+
+	column preco_base
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: 19e57de1-c094-4375-8855-187218eac5f5
+		summarizeBy: none
+		sourceColumn: preco_base
+
+	column valor_item
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: bccc2a07-0176-482d-8be2-969c88fe2e49
+		summarizeBy: none
+		sourceColumn: valor_item
+
+	column quantidade_invalida
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 55b5a84d-6fc5-4f05-9262-08b89dd7c409
+		summarizeBy: none
+		sourceColumn: quantidade_invalida
+
+	column valor_invalido
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: e4829d69-a252-4be3-b37e-14938d4d6694
+		summarizeBy: none
+		sourceColumn: valor_invalido
+
+	partition fato_itens_carrinho = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "fato_itens_carrinho.csv" or Text.EndsWith([Name], "-fato_itens_carrinho.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo fato_itens_carrinho.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"item_id", Int64.Type}, {"carrinho_id", Int64.Type}, {"produto_id", Int64.Type}, {"produto_identificado", Int64.Type}, {"quantidade", type number}, {"preco_base", Currency.Type}, {"valor_item", Currency.Type}, {"quantidade_invalida", Int64.Type}, {"valor_invalido", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

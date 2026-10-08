@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU06",
+      "reportVersionAtImport": {
+        "visual": "1.8.91",
+        "report": "2.0.91",
+        "page": "1.3.91"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "CantuStoreTheme.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.91",
+        "report": "2.0.91",
+        "page": "1.3.91"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "cantustore_logo.png",
+          "path": "cantustore_logo.png",
+          "type": "Image"
+        },
+        {
+          "name": "CantuStoreTheme.json",
+          "path": "CantuStoreTheme.json",
+          "type": "CustomTheme"
+        }
+      ]
+    },
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU06",
+          "path": "BaseThemes/CY24SU06.json",
+          "type": "BaseTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "defaultFilterActionIsDataFilter": true,
+    "useEnhancedTooltips": true
+  }
+}

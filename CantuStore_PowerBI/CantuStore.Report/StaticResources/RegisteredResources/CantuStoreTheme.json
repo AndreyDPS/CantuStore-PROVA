@@ -1,0 +1,29 @@
+{
+  "name": "CantuStore",
+  "dataColors": [
+    "#4F008F",
+    "#8750C7",
+    "#B188DD",
+    "#6E18A8",
+    "#CBB4E7",
+    "#38105C",
+    "#A067CF"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#32114F",
+  "tableAccent": "#4F008F",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI",
+      "color": "#4F008F"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#32114F"
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "color": "#4F008F"
+    }
+  }
+}

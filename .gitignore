@@ -1,16 +1,26 @@
-# Dados brutos
-data/raw/
+# Ignorar tudo na raiz
+/*
 
-# Python
-__pycache__/
-*.pyc
+# Manter o próprio .gitignore
+!/.gitignore
 
-# Jupyter
-.ipynb_checkpoints/
+# Permitir o projeto Power BI
+!/CantuStore_PowerBI/
 
-# Ambiente virtual
-.venv/
-venv/
+# Permitir somente data/raw
+!/data/
+/data/*
+!/data/raw/
 
-# Temporários
-*.tmp
+# Permitir notebooks e SQL
+!/NOTEBOOKS/
+!/sql/
+
+# Ignorar caches e arquivos locais
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/.pbi/
+
+/README.md
+/requirements.txt
+!/.gitattributes

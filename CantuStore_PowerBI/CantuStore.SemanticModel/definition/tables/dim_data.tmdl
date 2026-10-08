@@ -1,0 +1,70 @@
+table dim_data
+	lineageTag: ba95bb17-c21b-43de-a420-5332c1694438
+
+	column data_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 89b2df3b-4103-4b1e-941d-920161165fa6
+		summarizeBy: none
+		sourceColumn: data_id
+
+	column data
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 06a22c81-53d0-4bbe-9601-9b0a1ecfa69a
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		formatString: #,0
+		lineageTag: ed8959e1-888a-47e6-a398-f1888e8925a6
+		summarizeBy: none
+		sourceColumn: ano
+
+	column mes
+		dataType: int64
+		formatString: #,0
+		lineageTag: e3af3b94-918c-4e24-961d-0ea80d238223
+		summarizeBy: none
+		sourceColumn: mes
+
+	column dia
+		dataType: int64
+		formatString: #,0
+		lineageTag: 00a948a5-3ade-472b-bfe6-c9d617e0f0c0
+		summarizeBy: none
+		sourceColumn: dia
+
+	column ano_mes
+		dataType: string
+		lineageTag: 1faf146c-ae83-4c23-8dd4-4e42aa1ef778
+		summarizeBy: none
+		sourceColumn: ano_mes
+		sortByColumn: ano_mes_ordem
+
+	column ano_mes_ordem
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f47106dc-771b-407b-ba5e-27a073294f6d
+		summarizeBy: none
+		sourceColumn: ano_mes_ordem
+
+	partition dim_data = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_data.csv" or Text.EndsWith([Name], "-dim_data.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_data.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"data_id", Int64.Type}, {"data", type date}, {"ano", Int64.Type}, {"mes", Int64.Type}, {"dia", Int64.Type}, {"ano_mes", type text}, {"ano_mes_ordem", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

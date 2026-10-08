@@ -1,0 +1,31 @@
+table dim_canal
+	lineageTag: 6048843c-e00a-4a04-94e7-f2f4d0c11707
+
+	column canal_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e8c7d77a-df54-4d1a-8b07-c324899d2280
+		summarizeBy: none
+		sourceColumn: canal_id
+
+	column nome_canal
+		dataType: string
+		lineageTag: 656fc234-d948-45f1-8d87-8191c49b3116
+		summarizeBy: none
+		sourceColumn: nome_canal
+
+	partition dim_canal = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_canal.csv" or Text.EndsWith([Name], "-dim_canal.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_canal.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"canal_id", Int64.Type}, {"nome_canal", type text}}, "en-US")
+				in
+				    Tipos
+

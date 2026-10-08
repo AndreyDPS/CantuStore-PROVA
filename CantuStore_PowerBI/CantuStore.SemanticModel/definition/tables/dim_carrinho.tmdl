@@ -1,0 +1,78 @@
+table dim_carrinho
+	lineageTag: c2f022c7-6aa1-4b87-9a4c-90bf7f31c48d
+
+	column carrinho_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 49d4d4ef-2d15-46cd-9e68-f134ea1cf3e0
+		summarizeBy: none
+		sourceColumn: carrinho_id
+
+	column data_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fd493197-6f34-4caf-a0d8-31a627985318
+		summarizeBy: none
+		sourceColumn: data_id
+
+	column data_criacao
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: f94ba274-ee97-413f-8b21-45b2bae78069
+		summarizeBy: none
+		sourceColumn: data_criacao
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column canal_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7a281440-2432-43fa-b4a2-90d5347887c4
+		summarizeBy: none
+		sourceColumn: canal_id
+
+	column regiao_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0ca58f87-d49b-40bc-a786-2f110ed13bf8
+		summarizeBy: none
+		sourceColumn: regiao_id
+
+	column possui_endereco
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5813dda6-c0f3-4fd1-b0d2-76d3a90c97ca
+		summarizeBy: none
+		sourceColumn: possui_endereco
+
+	column possui_pagamento
+		dataType: int64
+		formatString: #,0
+		lineageTag: 73b71311-5134-4569-bfda-72f196bfeed8
+		summarizeBy: none
+		sourceColumn: possui_pagamento
+
+	column perfil_checkout
+		dataType: string
+		lineageTag: 11df5d2a-5306-4867-8066-d18aec9857c4
+		summarizeBy: none
+		sourceColumn: perfil_checkout
+
+	partition dim_carrinho = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_carrinho.csv" or Text.EndsWith([Name], "-dim_carrinho.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_carrinho.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"carrinho_id", Int64.Type}, {"data_id", Int64.Type}, {"data_criacao", type date}, {"canal_id", Int64.Type}, {"regiao_id", Int64.Type}, {"possui_endereco", Int64.Type}, {"possui_pagamento", Int64.Type}, {"perfil_checkout", type text}}, "en-US")
+				in
+				    Tipos
+

@@ -1,0 +1,37 @@
+table dim_regiao
+	lineageTag: 23fc50a2-c595-48bb-9aba-3f095e305f50
+
+	column regiao_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 67471ae0-db51-483b-8b64-5358f61dc797
+		summarizeBy: none
+		sourceColumn: regiao_id
+
+	column codigo_regiao
+		dataType: string
+		lineageTag: 103573a6-1126-4ded-89cc-e053c60b30b0
+		summarizeBy: none
+		sourceColumn: codigo_regiao
+
+	column uf
+		dataType: string
+		lineageTag: c40e0a83-081c-403e-bc26-0b848eaeb36a
+		summarizeBy: none
+		sourceColumn: uf
+
+	partition dim_regiao = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_regiao.csv" or Text.EndsWith([Name], "-dim_regiao.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_regiao.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"regiao_id", Int64.Type}, {"codigo_regiao", type text}, {"uf", type text}}, "en-US")
+				in
+				    Tipos
+

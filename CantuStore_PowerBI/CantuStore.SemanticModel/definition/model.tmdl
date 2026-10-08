@@ -1,0 +1,25 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["PastaDados", "dim_produto", "dim_regiao", "fato_duplas_carrinho", "fato_itens_carrinho", "dim_canal", "dim_carrinho", "dim_data", "periodo_comparacao"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_produto
+ref table dim_regiao
+ref table fato_duplas_carrinho
+ref table fato_itens_carrinho
+ref table dim_canal
+ref table dim_carrinho
+ref table dim_data
+ref table periodo_comparacao
+
+ref cultureInfo pt-BR
+

@@ -1,0 +1,382 @@
+{
+  "validacoes": {
+    "carrinhos": 2110291,
+    "itens": 2461258,
+    "produtos": 5505,
+    "regioes": 29,
+    "canais": 27,
+    "datas": 955
+  },
+  "duplas": 445085,
+  "data_inicial": "2019-12-16",
+  "data_final": "2022-07-26",
+  "unidades": 6345211.0,
+  "valor_itens": 15800560606.395,
+  "cobertura_geografica": 0.06348176625877663,
+  "sem_data": 28758,
+  "sem_canal": 28758,
+  "sem_produto": 1,
+  "mes_comparacao": "2022-07",
+  "mes_anterior": "2022-06",
+  "produtos_aumento": 1720,
+  "top_produtos": [
+    {
+      "produto_id": 8797277388801,
+      "carrinhos": 33617,
+      "registros_itens": 33785,
+      "unidades": 95386.0,
+      "valor_itens": 149026666.455
+    },
+    {
+      "produto_id": 8800160153601,
+      "carrinhos": 29213,
+      "registros_itens": 29472,
+      "unidades": 82844.0,
+      "valor_itens": 105955336.215
+    },
+    {
+      "produto_id": 8797234200577,
+      "carrinhos": 29177,
+      "registros_itens": 29295,
+      "unidades": 86526.0,
+      "valor_itens": 139319403.795
+    },
+    {
+      "produto_id": 8801372176385,
+      "carrinhos": 22381,
+      "registros_itens": 22520,
+      "unidades": 62724.0,
+      "valor_itens": 83680644.51
+    },
+    {
+      "produto_id": 8797232398337,
+      "carrinhos": 21861,
+      "registros_itens": 21943,
+      "unidades": 64880.0,
+      "valor_itens": 113397712.83
+    },
+    {
+      "produto_id": 8801373749249,
+      "carrinhos": 19277,
+      "registros_itens": 19395,
+      "unidades": 62048.0,
+      "valor_itens": 163194779.025
+    },
+    {
+      "produto_id": 8800160120833,
+      "carrinhos": 19084,
+      "registros_itens": 19261,
+      "unidades": 51407.0,
+      "valor_itens": 69133018.95
+    },
+    {
+      "produto_id": 8797277159425,
+      "carrinhos": 16858,
+      "registros_itens": 16933,
+      "unidades": 49748.0,
+      "valor_itens": 89422832.745
+    },
+    {
+      "produto_id": 8797234790401,
+      "carrinhos": 16479,
+      "registros_itens": 16556,
+      "unidades": 46846.0,
+      "valor_itens": 79064695.305
+    },
+    {
+      "produto_id": 8800160284673,
+      "carrinhos": 16284,
+      "registros_itens": 16435,
+      "unidades": 47093.0,
+      "valor_itens": 62733280.365
+    }
+  ],
+  "top_duplas": [
+    {
+      "produto_a_id": 8797983080449,
+      "produto_b_id": 8800160120833,
+      "carrinhos": 1205
+    },
+    {
+      "produto_a_id": 8800160153601,
+      "produto_b_id": 8801372176385,
+      "carrinhos": 1005
+    },
+    {
+      "produto_a_id": 8797234200577,
+      "produto_b_id": 8799375851521,
+      "carrinhos": 909
+    },
+    {
+      "produto_a_id": 8797164437505,
+      "produto_b_id": 8800160120833,
+      "carrinhos": 702
+    },
+    {
+      "produto_a_id": 8800160186369,
+      "produto_b_id": 8802909716481,
+      "carrinhos": 682
+    },
+    {
+      "produto_a_id": 8797304815617,
+      "produto_b_id": 8800160284673,
+      "carrinhos": 578
+    },
+    {
+      "produto_a_id": 8797329063937,
+      "produto_b_id": 8800160120833,
+      "carrinhos": 537
+    },
+    {
+      "produto_a_id": 8797277388801,
+      "produto_b_id": 8801370537985,
+      "carrinhos": 465
+    },
+    {
+      "produto_a_id": 8797982916609,
+      "produto_b_id": 8800160153601,
+      "carrinhos": 443
+    },
+    {
+      "produto_a_id": 8797164437505,
+      "produto_b_id": 8797983080449,
+      "carrinhos": 441
+    }
+  ],
+  "estados": [
+    {
+      "uf": "NI",
+      "carrinhos": 1976326
+    },
+    {
+      "uf": "SP",
+      "carrinhos": 31985
+    },
+    {
+      "uf": "MG",
+      "carrinhos": 22058
+    },
+    {
+      "uf": "RJ",
+      "carrinhos": 11318
+    },
+    {
+      "uf": "BA",
+      "carrinhos": 8637
+    },
+    {
+      "uf": "RS",
+      "carrinhos": 7617
+    },
+    {
+      "uf": "PR",
+      "carrinhos": 7558
+    },
+    {
+      "uf": "SC",
+      "carrinhos": 6585
+    },
+    {
+      "uf": "GO",
+      "carrinhos": 6439
+    },
+    {
+      "uf": "ES",
+      "carrinhos": 5581
+    },
+    {
+      "uf": "PE",
+      "carrinhos": 4162
+    },
+    {
+      "uf": "CE",
+      "carrinhos": 3951
+    },
+    {
+      "uf": "DF",
+      "carrinhos": 3262
+    },
+    {
+      "uf": "RN",
+      "carrinhos": 2267
+    },
+    {
+      "uf": "PB",
+      "carrinhos": 2002
+    },
+    {
+      "uf": "MT",
+      "carrinhos": 1844
+    },
+    {
+      "uf": "AL",
+      "carrinhos": 1507
+    },
+    {
+      "uf": "MA",
+      "carrinhos": 1464
+    },
+    {
+      "uf": "SE",
+      "carrinhos": 1275
+    },
+    {
+      "uf": "MS",
+      "carrinhos": 1252
+    },
+    {
+      "uf": "PI",
+      "carrinhos": 1229
+    },
+    {
+      "uf": "PA",
+      "carrinhos": 903
+    },
+    {
+      "uf": "TO",
+      "carrinhos": 881
+    },
+    {
+      "uf": "RO",
+      "carrinhos": 85
+    },
+    {
+      "uf": "AP",
+      "carrinhos": 33
+    },
+    {
+      "uf": "AC",
+      "carrinhos": 31
+    },
+    {
+      "uf": "AM",
+      "carrinhos": 29
+    },
+    {
+      "uf": "RR",
+      "carrinhos": 10
+    }
+  ],
+  "top_aumentos": [
+    {
+      "produto_id": 8800160153601,
+      "carrinhos": 2803.0,
+      "registros_itens": 2803.0,
+      "unidades": 7781.0,
+      "valor_itens": 11032618.59,
+      "carrinhos_anterior": 960.0,
+      "variacao_absoluta": 1843.0,
+      "variacao_percentual": 1.9197916666666666,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8800160186369,
+      "carrinhos": 1915.0,
+      "registros_itens": 1915.0,
+      "unidades": 5180.0,
+      "valor_itens": 7895112.255,
+      "carrinhos_anterior": 573.0,
+      "variacao_absoluta": 1342.0,
+      "variacao_percentual": 2.3420593368237346,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8799375851521,
+      "carrinhos": 1357.0,
+      "registros_itens": 1357.0,
+      "unidades": 3965.0,
+      "valor_itens": 6996133.575,
+      "carrinhos_anterior": 52.0,
+      "variacao_absoluta": 1305.0,
+      "variacao_percentual": 25.096153846153847,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8808349663233,
+      "carrinhos": 1679.0,
+      "registros_itens": 1679.0,
+      "unidades": 4903.0,
+      "valor_itens": 7308188.865,
+      "carrinhos_anterior": 397.0,
+      "variacao_absoluta": 1282.0,
+      "variacao_percentual": 3.229219143576826,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8800160284673,
+      "carrinhos": 1100.0,
+      "registros_itens": 1100.0,
+      "unidades": 3065.0,
+      "valor_itens": 4493269.845,
+      "carrinhos_anterior": 222.0,
+      "variacao_absoluta": 878.0,
+      "variacao_percentual": 3.954954954954955,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8804122394625,
+      "carrinhos": 1393.0,
+      "registros_itens": 1393.0,
+      "unidades": 4142.0,
+      "valor_itens": 5516754.3,
+      "carrinhos_anterior": 649.0,
+      "variacao_absoluta": 744.0,
+      "variacao_percentual": 1.1463790446841293,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8802941698049,
+      "carrinhos": 1758.0,
+      "registros_itens": 1758.0,
+      "unidades": 4714.0,
+      "valor_itens": 7163923.275,
+      "carrinhos_anterior": 1028.0,
+      "variacao_absoluta": 730.0,
+      "variacao_percentual": 0.7101167315175098,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8808349696001,
+      "carrinhos": 808.0,
+      "registros_itens": 808.0,
+      "unidades": 2361.0,
+      "valor_itens": 3832785.585,
+      "carrinhos_anterior": 83.0,
+      "variacao_absoluta": 725.0,
+      "variacao_percentual": 8.734939759036145,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8797234200577,
+      "carrinhos": 2340.0,
+      "registros_itens": 2340.0,
+      "unidades": 6833.0,
+      "valor_itens": 12769264.71,
+      "carrinhos_anterior": 1623.0,
+      "variacao_absoluta": 717.0,
+      "variacao_percentual": 0.4417744916820702,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    },
+    {
+      "produto_id": 8797231382529,
+      "carrinhos": 1060.0,
+      "registros_itens": 1060.0,
+      "unidades": 3022.0,
+      "valor_itens": 6104254.095,
+      "carrinhos_anterior": 352.0,
+      "variacao_absoluta": 708.0,
+      "variacao_percentual": 2.0113636363636362,
+      "mes_atual": "2022-07",
+      "mes_anterior": "2022-06"
+    }
+  ]
+}

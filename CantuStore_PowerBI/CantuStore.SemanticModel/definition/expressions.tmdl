@@ -1,0 +1,8 @@
+/// Pasta que contém os sete CSVs exportados.
+expression PastaDados = "C:/Users/Andrey/OneDrive/Documents/GITHUB/CantuStore-PROVA/data/processed/modelo_python_20261008_050336_103641" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 563ce258-dd97-4f4c-8ace-4907d0310ddf
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Text
+

@@ -1,0 +1,47 @@
+table fato_duplas_carrinho
+	lineageTag: 642fa979-fb19-4bf6-8d95-ae162887dd6a
+
+	column carrinho_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 06dfe293-eebe-419f-ae9a-8fb9078df593
+		summarizeBy: none
+		sourceColumn: carrinho_id
+
+	column produto_a_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 31210b49-31ea-4c1f-aa6b-f1fe324ac46e
+		summarizeBy: none
+		sourceColumn: produto_a_id
+
+	column produto_b_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 810eff14-2c93-4859-954d-5c05fca89ccd
+		summarizeBy: none
+		sourceColumn: produto_b_id
+
+	column dupla
+		dataType: string
+		lineageTag: e9f01411-7b47-419c-85bb-3968cef6b03f
+		summarizeBy: none
+		sourceColumn: dupla
+
+	partition fato_duplas_carrinho = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "fato_duplas_carrinho.csv" or Text.EndsWith([Name], "-fato_duplas_carrinho.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo fato_duplas_carrinho.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"carrinho_id", Int64.Type}, {"produto_a_id", Int64.Type}, {"produto_b_id", Int64.Type}, {"dupla", type text}}, "en-US")
+				in
+				    Tipos
+

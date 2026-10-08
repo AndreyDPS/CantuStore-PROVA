@@ -1,0 +1,24 @@
+relationship f35bf7a4-ddc7-46de-8dd1-08eb4ce291e0
+	fromColumn: dim_carrinho.data_id
+	toColumn: dim_data.data_id
+
+relationship 76dbb437-860c-42cc-96ee-984a4ed33b63
+	fromColumn: dim_carrinho.canal_id
+	toColumn: dim_canal.canal_id
+
+relationship 35d1312c-0a07-462e-858d-c97145afeaae
+	fromColumn: dim_carrinho.regiao_id
+	toColumn: dim_regiao.regiao_id
+
+relationship eabb04e9-adb5-40ad-baa9-04e2e7cb321f
+	fromColumn: fato_itens_carrinho.carrinho_id
+	toColumn: dim_carrinho.carrinho_id
+
+relationship 3205d1ab-0456-4d60-b5b3-a0d1cf28878b
+	fromColumn: fato_itens_carrinho.produto_id
+	toColumn: dim_produto.produto_id
+
+relationship 6d04adfe-7db8-4390-b77c-759a8dce4b24
+	fromColumn: fato_duplas_carrinho.carrinho_id
+	toColumn: dim_carrinho.carrinho_id
+

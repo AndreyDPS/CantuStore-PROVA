@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 50,
+            "y": -50
+          },
+          "nodeIndex": "dim_canal",
+          "nodeLineageTag": "6048843c-e00a-4a04-94e7-f2f4d0c11707",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 411.84802067049043,
+            "y": 352.01231083465132
+          },
+          "nodeIndex": "dim_carrinho",
+          "nodeLineageTag": "c2f022c7-6aa1-4b87-9a4c-90bf7f31c48d",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 122.58879204743172,
+            "y": 493.00765946513616
+          },
+          "nodeIndex": "dim_data",
+          "nodeLineageTag": "ba95bb17-c21b-43de-a420-5332c1694438",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 79.043468074025128,
+            "y": 175.71502170991403
+          },
+          "nodeIndex": "dim_produto",
+          "nodeLineageTag": "1dcbe77f-817b-48b8-af5e-8ddd58750728",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 711.87658797807171,
+            "y": 476.41653265690411
+          },
+          "nodeIndex": "dim_regiao",
+          "nodeLineageTag": "23fc50a2-c595-48bb-9aba-3f095e305f50",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 511.61719555298419,
+            "y": 120.26605871235836
+          },
+          "nodeIndex": "fato_duplas_carrinho",
+          "nodeLineageTag": "642fa979-fb19-4bf6-8d95-ae162887dd6a",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 457.49635231781889,
+            "y": 681.05720124044342
+          },
+          "nodeIndex": "fato_itens_carrinho",
+          "nodeLineageTag": "0884dd8e-f677-4c29-982e-d326e234b04d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 986.8765879780716,
+            "y": 173.52860062022171
+          },
+          "nodeIndex": "periodo_comparacao",
+          "nodeLineageTag": "4bc99614-a34a-47f7-9d05-2e706849c5ba",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

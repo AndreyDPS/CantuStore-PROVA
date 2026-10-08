@@ -1,0 +1,96 @@
+Carrinhos analisados =
+DISTINCTCOUNT(fato_itens_carrinho[carrinho_id])
+
+Registros de itens =
+COUNTROWS(fato_itens_carrinho)
+
+Unidades de produtos =
+CALCULATE(SUM(fato_itens_carrinho[quantidade]), fato_itens_carrinho[quantidade_invalida] = 0)
+
+Valor dos itens =
+CALCULATE(SUM(fato_itens_carrinho[valor_item]), fato_itens_carrinho[valor_invalido] = 0)
+
+Produtos identificados =
+CALCULATE(DISTINCTCOUNT(fato_itens_carrinho[produto_id]), fato_itens_carrinho[produto_id] <> -1)
+
+Carrinhos sem data =
+CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[data_id] = -1))
+
+Carrinhos com estado =
+CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[regiao_id] <> -1))
+
+Carrinhos sem estado =
+CALCULATE([Carrinhos analisados], KEEPFILTERS(dim_carrinho[regiao_id] = -1))
+
+Cobertura geográfica =
+DIVIDE([Carrinhos com estado], [Carrinhos analisados])
+
+Carrinhos em estados identificados =
+IF(SELECTEDVALUE(dim_regiao[uf]) <> "NI", [Carrinhos analisados])
+
+Carrinhos da dupla =
+DISTINCTCOUNT(fato_duplas_carrinho[carrinho_id])
+
+Carrinhos Top 10 produtos =
+VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+VAR Posicao = RANKX(FILTER(ALLSELECTED(dim_produto), dim_produto[produto_id] <> -1), [Carrinhos analisados], , DESC, DENSE)
+RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && Posicao <= 10, [Carrinhos analisados])
+
+Carrinhos Top 10 duplas =
+VAR Posicao = RANKX(ALLSELECTED(fato_duplas_carrinho[dupla]), [Carrinhos da dupla], , DESC, DENSE)
+RETURN IF(Posicao <= 10, [Carrinhos da dupla])
+
+Mês de comparação =
+SELECTEDVALUE(periodo_comparacao[ano_mes], MAX(periodo_comparacao[ano_mes]))
+
+Carrinhos mês selecionado =
+VAR Chave = SELECTEDVALUE(periodo_comparacao[ano_mes_ordem], MAX(periodo_comparacao[ano_mes_ordem]))
+RETURN COALESCE(CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = Chave)), 0)
+
+Carrinhos mês anterior =
+VAR Chave = SELECTEDVALUE(periodo_comparacao[ano_mes_ordem], MAX(periodo_comparacao[ano_mes_ordem]))
+VAR Inicio = DATE(INT(Chave / 100), MOD(Chave, 100), 1)
+VAR Anterior = EDATE(Inicio, -1)
+VAR ChaveAnterior = YEAR(Anterior) * 100 + MONTH(Anterior)
+VAR Existe = COUNTROWS(FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = ChaveAnterior)) > 0
+RETURN IF(Existe, COALESCE(CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[ano_mes_ordem] = ChaveAnterior)), 0))
+
+Variação absoluta =
+VAR Ant = [Carrinhos mês anterior] RETURN IF(NOT ISBLANK(Ant), [Carrinhos mês selecionado] - Ant)
+
+Variação percentual =
+DIVIDE([Variação absoluta], [Carrinhos mês anterior])
+
+Aumento positivo =
+VAR Produto = SELECTEDVALUE(dim_produto[produto_id]) RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && [Variação absoluta] > 0, [Variação absoluta])
+
+Carrinhos atual com aumento =
+IF(NOT ISBLANK([Aumento positivo]), [Carrinhos mês selecionado])
+
+Carrinhos anterior com aumento =
+IF(NOT ISBLANK([Aumento positivo]), [Carrinhos mês anterior])
+
+Percentual com aumento =
+IF(NOT ISBLANK([Aumento positivo]), [Variação percentual])
+
+Aumento Top 10 =
+VAR Posicao = RANKX(FILTER(ALLSELECTED(dim_produto), dim_produto[produto_id] <> -1), [Aumento positivo], , DESC, DENSE)
+RETURN IF(Posicao <= 10, [Aumento positivo])
+
+Carrinhos primeiro mês observado =
+VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Carrinhos analisados], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))
+
+Unidades primeiro mês observado =
+VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Unidades de produtos], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))
+
+Valor primeiro mês observado =
+VAR Produto = SELECTEDVALUE(dim_produto[produto_id])
+VAR Primeira = SELECTEDVALUE(dim_produto[primeira_aparicao_observada])
+VAR Inicio = DATE(YEAR(Primeira), MONTH(Primeira), 1)
+RETURN IF(NOT ISBLANK(Produto) && Produto <> -1 && NOT ISBLANK(Primeira), CALCULATE([Valor dos itens], FILTER(ALL(dim_data), dim_data[data] >= Inicio && dim_data[data] < EDATE(Inicio, 1))))

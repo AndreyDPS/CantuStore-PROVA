@@ -1,0 +1,47 @@
+/// Seletor independente. Um único mês selecionado compara o mês escolhido com o anterior; sem seleção usa o último mês observado.
+table periodo_comparacao
+	lineageTag: 4bc99614-a34a-47f7-9d05-2e706849c5ba
+
+	column ano_mes
+		dataType: string
+		lineageTag: a7e0f10a-4849-4233-b6e9-97676f50f3c8
+		summarizeBy: none
+		sourceColumn: ano_mes
+		sortByColumn: ano_mes_ordem
+
+	column ano_mes_ordem
+		dataType: int64
+		isHidden
+		lineageTag: e983e2cb-2630-40d8-b0e7-472bffa212cb
+		summarizeBy: none
+		sourceColumn: ano_mes_ordem
+
+	column ano
+		dataType: int64
+		isHidden
+		lineageTag: 3209dd91-bc2a-4178-945d-c18f35dec042
+		summarizeBy: none
+		sourceColumn: ano
+
+	column mes
+		dataType: int64
+		isHidden
+		lineageTag: 2e04c3b2-f94d-442d-9840-742248c82f1a
+		summarizeBy: none
+		sourceColumn: mes
+
+	partition periodo_comparacao = m
+		mode: import
+		source =
+				let
+				    Arquivos = Folder.Contents(PastaDados),
+				    Selecionado = Table.SelectRows(Arquivos, each [Name] = "dim_data.csv" or Text.EndsWith([Name], "-dim_data.csv")),
+				    Conteudo = if Table.RowCount(Selecionado) = 1 then Selecionado{0}[Content] else error "Esperado um único arquivo dim_data.csv na pasta selecionada",
+				    Origem = Csv.Document(Conteudo, [Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Origem, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalho, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalho)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"data_id", Int64.Type}, {"data", type date}, {"ano", Int64.Type}, {"mes", Int64.Type}, {"dia", Int64.Type}, {"ano_mes", type text}, {"ano_mes_ordem", Int64.Type}}, "en-US"),
+				    Resultado = Table.Distinct(Table.SelectColumns(Table.SelectRows(Tipos, each [ano_mes_ordem] <> null), {"ano_mes", "ano_mes_ordem", "ano", "mes"}))
+				in
+				    Resultado
+

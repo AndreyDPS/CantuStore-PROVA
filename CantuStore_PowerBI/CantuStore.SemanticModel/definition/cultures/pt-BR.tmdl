@@ -1,0 +1,691 @@
+cultureInfo pt-BR
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "dim_data.ano_mes": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_data",
+			          "ConceptualProperty": "ano_mes"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_data.data": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_data",
+			          "ConceptualProperty": "data"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Data": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.unidades_de_produtos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Unidades de produtos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Unidades de produtos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Unidades": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.produtos_identificados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Produtos identificados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Produtos identificados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_analisados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos analisados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos analisados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Carrinhos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.valor_dos_itens": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Valor dos itens"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Valor dos itens": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Valor não faturado (premissa)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_top_10_produtos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos Top 10 produtos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos Top 10 produtos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_top_10_duplas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos Top 10 duplas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos Top 10 duplas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_da_dupla": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos da dupla"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos da dupla": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_atual_com_aumento": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos atual com aumento"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Atual": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_anterior_com_aumento": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos anterior com aumento"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Anterior": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.aumento_positivo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Aumento positivo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Aumento": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.percentual_com_aumento": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Percentual com aumento"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Variação %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.aumento_top_10": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Aumento Top 10"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Aumento Top 10": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_primeiro_mês_observado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos primeiro mês observado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos no primeiro mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.unidades_primeiro_mês_observado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Unidades primeiro mês observado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Unidades no primeiro mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.valor_primeiro_mês_observado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Valor primeiro mês observado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Valor no primeiro mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.cobertura_geográfica": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Cobertura geográfica"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Cobertura geográfica": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_com_estado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos com estado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos com estado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_em_estados_identificados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos em estados identificados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos em estados identificados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.carrinhos_sem_estado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Carrinhos sem estado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Carrinhos sem estado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_itens_carrinho.registros_de_itens": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_itens_carrinho",
+			          "ConceptualProperty": "Registros de itens"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Registros de itens": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_canal.nome_canal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_canal",
+			          "ConceptualProperty": "nome_canal"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Canal": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_carrinho.perfil_checkout": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_carrinho",
+			          "ConceptualProperty": "perfil_checkout"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Perfil de checkout": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Perfil": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_produto.produto_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_produto",
+			          "ConceptualProperty": "produto_id"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Produto ID": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_produto.mes_primeira_aparicao": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_produto",
+			          "ConceptualProperty": "mes_primeira_aparicao"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mês da primeira aparição": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Primeiro mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_produto.primeira_aparicao_observada": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_produto",
+			          "ConceptualProperty": "primeira_aparicao_observada"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Primeira aparição": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fato_duplas_carrinho.dupla": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fato_duplas_carrinho",
+			          "ConceptualProperty": "dupla"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Dupla": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "periodo_comparacao.ano_mes": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "periodo_comparacao",
+			          "ConceptualProperty": "ano_mes"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mês de comparação": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_regiao.uf": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_regiao",
+			          "ConceptualProperty": "uf"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "UF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+
